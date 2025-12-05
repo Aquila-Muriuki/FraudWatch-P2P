@@ -1,4 +1,4 @@
-*FraudWatch P2P
+FraudWatch P2P
 AI-Driven Fraud Detection & Compliance for Public Finance Systems
 
 FraudWatch P2P is an AI-powered risk intelligence layer that connects securely to IFMIS (Integrated Financial Management Information System) and performs real-time fraud detection, risk scoring, and compliance validation on procurement and payment transactions.
