@@ -8,13 +8,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#00C2FF",
-        darkbg: "#0E1217"
+        neon: "#22d3ee",
       },
-      backdropBlur: {
-        xs: "2px"
+      backgroundImage: {
+        "grid-noise": "radial-gradient(circle at 10% 10%, rgba(34,211,238,0.03), transparent 8%), radial-gradient(circle at 90% 90%, rgba(139,92,246,0.02), transparent 12%)"
       }
-    }
+    },
   },
   plugins: [],
 };

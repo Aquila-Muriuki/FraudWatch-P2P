@@ -1,12 +1,12 @@
-import { ThemeProvider } from "next-themes";
-import ClientShell from "./components/Clientshell";
+// server component
+import type { ReactNode } from "react";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
-// 🚀 layout remains a server component, no useState here
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <ThemeProvider attribute="class">
-      {/* Server-rendered layout */}
-      <ClientShell>{children}</ClientShell>
-    </ThemeProvider>
-  );
+export default async function DashboardLayout({ children }: { children: ReactNode }) {
+  const { userId } = await auth();
+  if (!userId) redirect("/"); // landing if not signed in
+
+  // children will render client shell
+  return <>{children}</>;
 }
