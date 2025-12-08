@@ -1,6 +1,6 @@
 "use client";
 
-import ClientShell from "./components/ClientShell";
+import ClientShell from "./components/Clientshell";
 import RiskOverview from "./components/RiskOverview";
 import CompliancePanel from "./components/CompliancePanel";
 import AlertsFeed from "./components/AlertsFeed";
