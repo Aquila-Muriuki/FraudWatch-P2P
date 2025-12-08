@@ -21,12 +21,12 @@ export default function Navbar() {
         
         {/* Logo */}
         <Link href="/" className="font-bold text-xl">
-          <span className="text-gradient bg-gradient-to-r from-sky-400 to-emerald-400 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-r from-sky-400 to-emerald-400 bg-clip-text text-transparent">
             FraudWatch
           </span>
         </Link>
 
-        {/* Desktop Nav */}
+        {/* Desktop Links */}
         <div className="hidden md:flex gap-10 text-sm text-gray-300">
           <Link href="#features" className="nav-link">Features</Link>
           <Link href="#howitworks" className="nav-link">How It Works</Link>
@@ -34,10 +34,10 @@ export default function Navbar() {
           <Link href="#about" className="nav-link">About</Link>
         </div>
 
-        {/* Auth / User */}
+        {/* Desktop Auth */}
         <div className="hidden md:block">
           {!isSignedIn ? (
-            <SignInButton mode="modal" afterSignInUrl="/dashboard">
+            <SignInButton mode="modal" forceRedirectUrl="/dashboard">
               <button className="px-5 py-2 rounded-lg bg-white text-black font-semibold hover:bg-gray-200 transition">
                 Sign In
               </button>
@@ -47,7 +47,7 @@ export default function Navbar() {
           )}
         </div>
 
-        {/* Mobile Button */}
+        {/* Mobile Toggle */}
         <button
           className="md:hidden text-white"
           onClick={() => setOpen(!open)}
@@ -63,21 +63,30 @@ export default function Navbar() {
           animate={{ opacity: 1, y: 0 }}
           className="md:hidden px-6 pb-4 flex flex-col gap-4 text-gray-300"
         >
-          <Link href="#features" className="nav-link">Features</Link>
-          <Link href="#howitworks" className="nav-link">How It Works</Link>
-          <Link href="#impact" className="nav-link">Impact</Link>
-          <Link href="#about" className="nav-link">About</Link>
+          <Link href="#features" className="nav-link" onClick={() => setOpen(false)}>Features</Link>
+          <Link href="#howitworks" className="nav-link" onClick={() => setOpen(false)}>How It Works</Link>
+          <Link href="#impact" className="nav-link" onClick={() => setOpen(false)}>Impact</Link>
+          <Link href="#about" className="nav-link" onClick={() => setOpen(false)}>About</Link>
 
-         {!isSignedIn ? (
-  <SignInButton mode="modal" redirectUrl="/dashboard">
-    <button>Sign In</button>
-  </SignInButton>
-) : (
-  <Link href="/dashboard">
-    <button>Go to Dashboard</button>
-  </Link>
-)}
-
+          {!isSignedIn ? (
+            <SignInButton mode="modal" forceRedirectUrl="/dashboard">
+              <button
+                onClick={() => setOpen(false)}
+                className="px-5 py-2 rounded-lg bg-white text-black font-semibold hover:bg-gray-200 transition"
+              >
+                Sign In
+              </button>
+            </SignInButton>
+          ) : (
+            <Link href="/dashboard">
+              <button
+                onClick={() => setOpen(false)}
+                className="px-5 py-2 rounded-lg bg-white text-black font-semibold"
+              >
+                Go to Dashboard
+              </button>
+            </Link>
+          )}
         </motion.div>
       )}
     </motion.nav>
