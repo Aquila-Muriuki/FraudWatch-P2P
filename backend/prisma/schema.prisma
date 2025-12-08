@@ -1,0 +1,67 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+   engineType = "accelerate"
+}
+
+
+// =====================
+//  Transaction Model
+// =====================
+
+model Transaction {
+  id             String      @id @default(uuid()) @db.Uuid
+  invoiceNumber  String?
+  supplierName   String
+  amount         Float
+  department     String?
+  rawPayload     Json?
+  status         String      @default("PENDING")
+  createdAt      DateTime    @default(now())
+  processedAt    DateTime?
+
+  decision       Decision?
+  
+  @@map("transactions")
+}
+
+
+// =====================
+//  Decision Model
+// =====================
+model Decision {
+  id             String       @id @default(uuid()) @db.Uuid
+  transactionId  String       @unique @db.Uuid
+  transaction    Transaction  @relation(fields: [transactionId], references: [id])
+
+  score          Int
+  riskLevel      String
+  status         String
+  flags          Json?
+  rulesTriggered Json?
+  auditSnapshot  Json?
+  createdAt      DateTime    @default(now())
+
+  @@map("decisions")
+}
+
+
+// =====================
+//  Rule Model
+// =====================
+
+model Rule {
+  id          String    @id @default(uuid()) @db.Uuid
+  code        String    @unique
+  description String?
+  severity    Int       @default(10)
+  ruleType    String
+  payload     Json?
+  active      Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+
+  @@map("rules")
+}

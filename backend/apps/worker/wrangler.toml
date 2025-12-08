@@ -1,0 +1,7 @@
+name = "fraudwatch-api"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+DATABASE_URL="postgresql://postgres:xxx@db.supabase.co:5432/postgres?sslmode=require"

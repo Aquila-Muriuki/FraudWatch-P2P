@@ -2,13 +2,14 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "my-app",
   "main": "src/index.ts",
-  "compatibility_date": "2025-12-06"
-  // "compatibility_flags": [
-  //   "nodejs_compat"
-  // ],
-  // "vars": {
-  //   "MY_VAR": "my-variable"
-  // },
+  "compatibility_date": "2025-12-06",
+  "compatibility_flags": [
+     "nodejs_compat"
+  ],
+  "vars": {
+ // 🛑 CRITICAL FIX: Add the variable here
+  "DATABASE_URL": "postgresql://postgres:09223109002%40Aquila%2E@db.ezmzqnoatlmwgwyljvib.supabase.co:5432/postgres?sslmode=prefer"
+ },
   // "kv_namespaces": [
   //   {
   //     "binding": "MY_KV_NAMESPACE",

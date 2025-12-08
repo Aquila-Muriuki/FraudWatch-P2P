@@ -1,8 +1,7 @@
-import { Rule } from '@prisma/client';
-
+// core/rules/engine.ts
 export type RuleTrigger = { ruleCode: string; reason: string; legalRef?: string; points: number; extra?: any };
 
-export function evaluateRules(transaction: any, rules: Rule[]): { triggered: RuleTrigger[]; deterministicScore: number } {
+export function evaluateRules(tx: any, rules: any[]): { triggered: RuleTrigger[]; deterministicScore: number } {
   const triggered: RuleTrigger[] = [];
   let deterministicScore = 0;
 
@@ -12,11 +11,11 @@ export function evaluateRules(transaction: any, rules: Rule[]): { triggered: Rul
 
     if (r.ruleType === 'threshold' && payload.field === 'amount') {
       const limits = payload.limitByDept || {};
-      const deptLimit = transaction.department ? limits[transaction.department] : undefined;
-      if (deptLimit && transaction.amount > deptLimit) {
+      const deptLimit = tx.department ? limits[tx.department] : undefined;
+      if (deptLimit && tx.amount > deptLimit) {
         triggered.push({
           ruleCode: r.code,
-          reason: `Amount ${transaction.amount} exceeds delegated limit ${deptLimit} for ${transaction.department}`,
+          reason: `Amount ${tx.amount} exceeds delegated limit ${deptLimit} for ${tx.department}`,
           legalRef: payload.legalRef,
           points: r.severity
         });
@@ -25,10 +24,10 @@ export function evaluateRules(transaction: any, rules: Rule[]): { triggered: Rul
     }
 
     if (r.ruleType === 'custom' && payload.threshold) {
-      if (transaction.amount > payload.threshold) {
+      if (tx.amount > payload.threshold) {
         triggered.push({
           ruleCode: r.code,
-          reason: `Amount ${transaction.amount} > threshold ${payload.threshold}`,
+          reason: `Amount ${tx.amount} > threshold ${payload.threshold}`,
           legalRef: payload.legalRef,
           points: r.severity
         });
@@ -37,7 +36,7 @@ export function evaluateRules(transaction: any, rules: Rule[]): { triggered: Rul
     }
 
     if (r.ruleType === 'regex' && payload.field && payload.pattern) {
-      const v = String(transaction[payload.field] ?? '');
+      const v = String(tx[payload.field] ?? '');
       const patt = new RegExp(payload.pattern, 'i');
       if (patt.test(v)) {
         triggered.push({
@@ -51,6 +50,6 @@ export function evaluateRules(transaction: any, rules: Rule[]): { triggered: Rul
     }
   }
 
-  deterministicScore = Math.min(deterministicScore, 70); // cap deterministic part a bit higher
+  deterministicScore = Math.min(deterministicScore, 70); // cap
   return { triggered, deterministicScore };
 }

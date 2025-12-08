@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "moduleResolution": "Bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "types": ["@cloudflare/workers-types", "node","hono"],
+    "lib": ["ESNext"],
+    
+
+    "baseUrl": ".",       // 🔥 REQUIRED HERE
+    "paths": {
+      "@core/*": ["core/*"],
+      "@api/*": ["apps/api/src/*"],
+      "@worker/*": ["apps/worker/src/*"]
+    },
+
+
+
+    
+    "ignoreDeprecations": "6.0"
+  }
+}
