@@ -1,4 +1,5 @@
 // src/lib/sidebarData.ts
+"use client";
 import {
   Compass, Brain, Receipt, AlarmCheck, Factory, FileText, Bot, ChartPie, Settings, Activity, ShieldCheck
 } from "lucide-react";
