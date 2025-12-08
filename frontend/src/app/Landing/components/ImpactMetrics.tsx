@@ -3,6 +3,11 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
+// 1. Import ScrollTrigger
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+// Register the ScrollTrigger plugin globally
+gsap.registerPlugin(ScrollTrigger);
 
 const metrics = [
   {
@@ -24,20 +29,34 @@ const metrics = [
 ];
 
 export default function ImpactMetrics() {
-  const cardsRef = useRef<HTMLDivElement[]>([]);
+  // 2. Fix Ref Type: Allow null in the array elements
+  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    gsap.from(cardsRef.current, {
-      opacity: 0,
-      y: 30,
-      duration: 1,
-      stagger: 0.15,
-      ease: "power4.out",
-    });
+    // 3. Use gsap.context for cleanup
+    let ctx = gsap.context(() => {
+      gsap.from(cardsRef.current, {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        stagger: 0.15,
+        ease: "power4.out",
+        // 4. Use ScrollTrigger to define when the animation should start
+        scrollTrigger: {
+          trigger: sectionRef.current, // The parent section is the trigger
+          start: "top 80%", // Start animation when the top of the section hits 80% down the viewport
+          // toggleActions: "play none none none", // Optional: Control behavior on scroll
+        },
+      });
+    }, sectionRef); // Scopes the context to the sectionRef element
+
+    return () => ctx.revert(); // Revert the animation on component unmount
   }, []);
 
   return (
-    <section className="py-28 bg-slate-950 text-white">
+    // 5. Attach the sectionRef to the parent section
+    <section ref={sectionRef} className="py-28 bg-slate-950 text-white">
       <div className="max-w-6xl mx-auto px-6">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -52,7 +71,11 @@ export default function ImpactMetrics() {
           {metrics.map((m, i) => (
             <div
               key={i}
-              ref={(el) => (cardsRef.current[i] = el!)}
+              // 6. Fix Ref Callback: Use a block statement and handle null
+              ref={(el) => {
+                // Assign the element to the array position
+                cardsRef.current[i] = el;
+              }}
               className="bg-slate-900/50 border border-white/10 p-8 rounded-2xl shadow-xl"
             >
               <div className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
