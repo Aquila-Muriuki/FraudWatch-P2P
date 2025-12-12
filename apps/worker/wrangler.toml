@@ -1,0 +1,11 @@
+name = "score-worker"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+Direct_URL="postgresql://postgres:xxx@db.supabase.co:5432/postgres?sslmode=require"
+port = 8788
+
+DATABASE_URL="prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3RfaWQiOjEsInNlY3VyZV9rZXkiOiJza182ZFNQY1BpemtiNXVPaUpGUTVjelYiLCJhcGlfa2V5IjoiMDFLQzFTWjdGSFhYWTFWUzI1WTA3RERRWjgiLCJ0ZW5hbnRfaWQiOiI0MTgxNTZiNDUxODFkNjM0OGU3NjI4MTA0MzIzYTc5ZWRhYjgyNDVkZjdlMGY2MzM4ODJhNWRmYzZiY2JkODAxIiwiaW50ZXJuYWxfc2VjcmV0IjoiYTEyZTE4OWMtMjE1NS00ZjlkLTk5OWYtYjQ3ZjNlZmM3YjM5In0.QTMhqtBGiMU6csRlkczfFNYwNEpn2wYqMZFlSbL1yUM"
+WORKER_URL = "http://127.0.0.1:8788"

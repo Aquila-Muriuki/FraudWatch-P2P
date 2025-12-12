@@ -1,0 +1,7 @@
+name = "fraudwatch-api"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+DATABASE_URL="prisma+postgres://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqd3RfaWQiOjEsInNlY3VyZV9rZXkiOiJza182ZFNQY1BpemtiNXVPaUpGUTVjelYiLCJhcGlfa2V5IjoiMDFLQzFTWjdGSFhYWTFWUzI1WTA3RERRWjgiLCJ0ZW5hbnRfaWlkIjoiNDExODE1NmI0NTE4MWQ2MzQ4ZTc2MjgxMDQzMjNhNzlhZGI4MjQ1ZGY3ZTBmNjMzODgyYTVkZmM2YmNiZDgwMSIsImludGVybmFsX3NlY3JldCI6ImExMmUxODljLTIxNTUtNGY5ZC05OTlmLWI0N2YzZWZjN2IzOSJ9.QTMhqtBGiMU6csRlkczfFNYwNEpn2wYqMZFlSbL1yUM"
